@@ -1,18 +1,46 @@
-import { StrictMode } from 'react'
+import { StrictMode } from "react"
 import ReactDOM from 'react-dom/client'
-import {ReactProviuder, createBrowserRouter } from 'react-router-dom'
+import {RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import './index.css'
-import App from './App.jsx'
+import React from "react"
+import App from './App.jsx';
+
+import Layout from './components/Layout.jsx'; // ✅ match folder spelling
+
+import Home from './components/Home.jsx';
+import About from './components/About.jsx';
+import Contact from './components/Contacts.jsx';
+import Github from './components/Github.jsx';
 
 const router = createBrowserRouter([
   {
-    paht:'/'
+    path:'/',
+    element: <Layout/>,
+    children:[
+      {
+       path:"/",
+       element:<Home/>   
+      },
+      {
+        path:"about",
+        element:<About/>
+      },
+      {
+        path:"contact",
+        element:<Contact/>
+      },
+      {
+        path:"github",
+        element:<Github/>
+      }
+      
+    ]
   }
 ])
 
+
  ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-<ReactProviuder router={router}/>
-
+    <RouterProvider router={router} /> {/* ✅ Fixed from ReactProvider */}
   </React.StrictMode>,
 )
