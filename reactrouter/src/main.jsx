@@ -10,7 +10,7 @@ import Layout from './components/Layout.jsx'; // ✅ match folder spelling
 import Home from './components/Home.jsx';
 import About from './components/About.jsx';
 import Contact from './components/Contacts.jsx';
-import Github from './components/Github.jsx';
+import Github, { githubInfoLoader } from './components/Github.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +30,9 @@ const router = createBrowserRouter([
         element:<Contact/>
       },
       {
+         loader : githubInfoLoader,
         path:"github",
+       
         element:<Github/>
       }
       
