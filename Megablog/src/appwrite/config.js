@@ -1,0 +1,60 @@
+import conf from "../conf/conf";
+import { Client, ID, Storage, Databases  } from "appwrite";
+
+export class Service{
+    client = new Client();
+
+    databases;
+    bucket;
+    constructor(){
+        this.client
+          setEndpoint(conf.appwriteUrl)
+          setProject(conf.appwriteProjectId);
+          this.bucket = new Storage(this.client);
+          this.databases = new Databases(this.client);
+    }
+
+    async createPost({title, slug, content, featuredImage, status, userId}){
+        try {
+           return await this.databases.createDocument(conf.appwriteDatbaseId, conf.appwriteCollectionId,slug,
+             {
+                title,
+                content,
+                featuredImage, 
+                status, 
+                userId
+             })
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async updatePost(slug,{title,  content, featuredImage, status, }){
+       try {
+         return await this.databases.updateDocument(conf.appwriteDatbaseId, conf.appwriteCollectionId,slug, {
+            title,
+            content,
+            featuredImage, 
+            status
+            
+            
+        })
+        
+       } catch (error) {
+        throw error;
+       }
+    }
+
+    async deletePost(slug){
+        try {
+             await this.databases.deleteDocument(conf.appwriteDatbaseId, conf.appwriteCollectionId, slug )
+            return true
+        } catch (error) {
+            throw error;
+            return false
+        }
+    }
+}
+
+const service = new Service()
+export default service;
