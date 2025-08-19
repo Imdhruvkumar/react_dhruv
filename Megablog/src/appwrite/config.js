@@ -1,5 +1,5 @@
 import conf from "../conf/conf";
-import { Client, ID, Storage, Databases  } from "appwrite";
+import { Client, ID, Storage, Databases, Query  } from "appwrite";
 
 export class Service{
     client = new Client();
@@ -54,6 +54,58 @@ export class Service{
             return false
         }
     }
+
+    async getPost(slug){
+        try {
+            return await this,this.databases.getDocument(conf.appwriteDatbaseId, conf.appwriteCollectionId, slug)
+        } catch (error) {
+            throw error;
+            return false
+        }
+    }
+
+    async getposts(queries = [Query.equal("status","active")]){
+        try {
+            return await this.databases.listDocuments(conf.appwriteDatbaseId
+                , conf.appwriteCollectionId, queries ,
+                
+            )
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // file upload service
+
+    async uploadFile(file){
+        try {
+            return await this.bucket.createFile(conf.appwriteBucketId,ID.unique(),file  )
+            
+        } catch (error) {
+         throw error;
+         return false
+            
+        }
+    }
+
+    async deleteFile(fileId){
+        try {
+            await this.bucket.deleteFile(conf.appwriteBucketId, fileId)
+            return true
+        } catch (error) {
+            throw error;
+            return false;
+        }
+    }
+
+    getFilePreview(fileId){
+        this.bucket.getFilePreview(
+            conf.appwriteBucketId,
+            fileId
+        )
+    }
+
 }
 
 const service = new Service()
