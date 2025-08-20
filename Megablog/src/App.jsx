@@ -18,6 +18,7 @@ function App() {
          dispatch(logout())
        }
       })
+      
       .finally(setLoading(false))
     },[])
   
