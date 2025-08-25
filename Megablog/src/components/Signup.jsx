@@ -1,15 +1,16 @@
 import React from "react";
 import authService from  '../appwrite/auth/'
 import {Link, useNavigate} from 'react-router-dom'
-import {Button, Input, Logo} from './Index'
+import {Button, Input, Logo} from './index'
 import {login} from '../store/authSlice'
 import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
 
+
 function Signup(){
     const navigate  = useNavigate()
     const dispatch =  useDispatch()
-    const {error, setError} = useState('')
+    const [error, setError ]= React.useState('')
     const {register, handleSubmit} = useForm()
 
     const create = async(data)=>{

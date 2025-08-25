@@ -3,9 +3,9 @@ import { Container, Postform } from "../src/components/Index";
 function AddPost(){
     return(
         <div className="py-8">
-            <container>
+            <Container>
                 <Postform/>
-            </container>
+            </Container>
 
         </div>
     )

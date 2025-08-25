@@ -35,21 +35,22 @@ export class AuthService{
    async login({email , password}){
     try {
         return await this.account.createEmailPasswordSession(email , password);
+        
     } catch (error) {
         throw error;
     }
    }
 
-    async getCurruntUser(){
-        try {
-           return  await this.account.get();
-            
-        } catch (error) {
-            throw error;
-            
-        }
-        return null;
-    }
+
+
+    async getCurrentUser() {
+  try {
+    return await this.account.get();   // agar session hai to user object milega
+  } catch (error) {
+    // agar user login nahi hai to yahan aayega
+    return null;
+  }
+}
 
     async logout(){
         try {

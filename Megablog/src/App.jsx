@@ -4,13 +4,16 @@ import './App.css'
 import authService from "./appwrite/auth"
 import {Header, Footer} from './components'
 import {login,logout} from './store/authSlice'
+import { Outlet } from 'react-router-dom'
 function App() {
 
   const  [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
     useEffect(()=>{
-      authService.getCurruntUser()
+     
+      
+      authService.getCurrentUser()
       .then((userData)=>{
        if(userData){
          dispatch(login({userData}))
@@ -19,7 +22,7 @@ function App() {
        }
       })
       
-      .finally(setLoading(false))
+      .finally(() => setLoading(false))
     },[])
   
   return !loading ? (
@@ -28,7 +31,9 @@ function App() {
       <div className='w-full block'>
         <Header/>
 
-        <main>/*outlet*/</main>
+         <main>
+        TODO:  <Outlet />
+        </main>
 
         <Footer/>
       </div>
